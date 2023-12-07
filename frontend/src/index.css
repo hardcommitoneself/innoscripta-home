@@ -9,3 +9,19 @@
         font-family: Inter;
     }
 }
+
+::-webkit-scrollbar {
+    @apply w-1
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-gray-100
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-gray-500 rounded-lg
+}
+
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-600
+}

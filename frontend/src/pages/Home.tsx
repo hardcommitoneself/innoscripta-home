@@ -1,8 +1,10 @@
 import React from "react";
-import { ArticleCard, TrendingCard, Input, Button } from "components";
+import { ArticleCard, TrendingCard, Input, Card } from "components";
+import { useArticleContext } from "context";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
 
-const articles = [
+const trends = [
   {
     imgUrl: "https://picsum.photos/id/237/200/300",
     title: "The overlooked benefits of real Christmas trees",
@@ -16,8 +18,10 @@ const articles = [
 ];
 
 export const Home = () => {
+  const { articles } = useArticleContext();
+
   return (
-    <div className="flex flex-col py-20">
+    <div className="flex flex-col py-10">
       {/* search */}
       <div className="flex items-center justify-between">
         <Input
@@ -28,17 +32,31 @@ export const Home = () => {
       </div>
 
       <div className="flex gap-10 mt-5">
-        <div className="flex gap-5 w-2/3">
+        <div className="flex gap-5 w-3/5 overflow-y-auto max-h-[60vh]">
           {/* blog list */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 mr-1">
             {articles.map((article, index) => (
-              <ArticleCard {...article} />
+              <div key={index}>
+                <ArticleCard {...article} />
+              </div>
             ))}
           </div>
         </div>
-        <div className="flex flex-col gap-10 w-1/3">
+        <div className="flex flex-col gap-6 w-2/5">
           {/* trending */}
-          <TrendingCard />
+          <Card>
+            <div className="flex flex-col gap-3">
+              <h1 className="text-base font-bold">Trending</h1>
+
+              <div className="flex flex-col gap-3">
+                {trends.map((trend, index) => (
+                  <div key={index}>
+                    <TrendingCard {...trend} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Card>
 
           {/* recommended users */}
         </div>

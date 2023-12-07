@@ -1,14 +1,23 @@
 import React, { FC } from "react";
 import { Card, Badge, Button } from "components/common";
 import moment from "moment";
+import { Link } from "react-router-dom";
+import stc from "string-to-color";
 
 export interface ArticleCardProps {
-  imgUrl: string;
+  id: number;
+  urlToImage: string;
   title: string;
   description: string;
-  category?: string;
-  source?: string;
-  author?: string;
+  category: {
+    id: number;
+    name: string;
+  };
+  source: {
+    id: number;
+    name: string;
+  };
+  author: string;
   publishedAt: string;
 }
 
@@ -18,8 +27,8 @@ export const ArticleCard: FC<ArticleCardProps> = (props) => {
       <div className="w-1/4">
         <img
           className="aspect-square rounded-xl"
-          src={props.imgUrl}
-          alt={props.imgUrl}
+          src={props.urlToImage}
+          alt={props.urlToImage}
         />
       </div>
       <div className="w-3/4 flex flex-col justify-between gap-3 p-1">
@@ -40,15 +49,17 @@ export const ArticleCard: FC<ArticleCardProps> = (props) => {
           <div className="flex flex-col gap-1">
             <span className="font-bold">{props.author}</span>
             <div className="flex items-center gap-1">
-              <Badge className="text-xs" bgColor="success">
-                {props.category}
+              <Badge className="text-xs" bgColor={stc(props.category.name)}>
+                {props.category.name}
               </Badge>
-              <Badge className="text-xs" bgColor="black">
-                {props.source}
+              <Badge className="text-xs" bgColor={stc(props.source.name)}>
+                {props.source.name}
               </Badge>
             </div>
           </div>
-          <Button bgColor="primary">Read More</Button>
+          <Button bgColor="primary">
+            <Link to={`article/${props.id}`}>Read More</Link>
+          </Button>
         </div>
       </div>
     </Card>
