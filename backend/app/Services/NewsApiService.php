@@ -4,8 +4,7 @@ namespace App\Services;
 
 use jcobhams\NewsApi\NewsApi;
 
-class NewsApiService
-{
+class NewsApiService {
     protected $newsApi;
 
     public function __construct(NewsApi $newsApi)
@@ -13,10 +12,10 @@ class NewsApiService
         $this->newsApi = $newsApi;
     }
 
-    public function getNewsArticles($q, $sources, $from, $to, $page_size, $page)
+    public function getNewsArticles($sources, $from, $to)
     {
-        return $this->newsApi->getEverything(
-            $q,
+        $response = $this->newsApi->getEverything(
+            $q = null,
             $sources,
             $domains = null,
             $exclude_domains = null,
@@ -24,22 +23,29 @@ class NewsApiService
             $to,
             $language = null,
             $sort_by = 'publishedAt',
-            $page_size,
-            $page
+            $page_size = null,
+            $page = null
         );
+        if ($response->status == 'ok') {
+            return $response->articles;
+        } else {
+            return [];
+        }
     }
 
-    public function getNewsCategories()
-    {
+    public function getNewsCategories() {
         return $this->newsApi->getCategories();
     }
 
-    public function getNewsSources($category)
-    {
-        return $this->newsApi->getSources(
-            $category,
-            $language = 'en',
-            $country = null
+    public function getNewsSources() {
+        $response = $this->newsApi->getSources(
+            $category=null, $language = 'en', $country = null
         );
+
+        if ($response->status == 'ok') {
+            return $response->sources;
+        } else {
+            return [];
+        }
     }
 }
