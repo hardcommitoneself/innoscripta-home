@@ -31,7 +31,7 @@ export const Header: React.FC = () => {
                 </>
               ) : (
                 <>
-                  <NavItem to="setting">Setting</NavItem>
+                  <NavItem to="settings">Settings</NavItem>
                   <Button>Logout</Button>
                 </>
               )}
