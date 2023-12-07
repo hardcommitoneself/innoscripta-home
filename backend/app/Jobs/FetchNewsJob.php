@@ -39,29 +39,27 @@ class FetchNewsJob implements ShouldQueue
 
         $categories = $newsApiService->getNewsCategories();
         foreach ($categories as $category) {
-            $existingCategory = Category::where('name', $category)->first();
-            if (!$existingCategory) {
-                Category::create([
+            Category::firstOrCreate(
+                ['name' => $category],
+                [
                     'name' => $category,
-                ]);
-            }
+                ]
+            );
         }
 
         $sources = $newsApiService->getNewsSources();
         foreach ($sources as $sourceItem) {
-            $source = new Source();
-            $source->slug = isset($sourceItem->id) ? $sourceItem->id : null;
-            $source->name = $sourceItem->name;
-            $source->description = isset($sourceItem->description) ? $sourceItem->description : null;
-            $source->url = isset($sourceItem->url) ? $sourceItem->url : null;
-            $source->category = isset($sourceItem->category) ? $sourceItem->category : null;
-            $source->language = isset($sourceItem->language) ? $sourceItem->language : null;
-            $source->country = isset($sourceItem->country) ? $sourceItem->country : null;
-
-            $existingSource = Source::where('name', $source->name)->first();
-            if (!$existingSource) {
-                $source->save();
-            }
+            Source::firstOrCreate(
+                ['name' => $sourceItem->name],
+                [
+                    'slug' => isset($sourceItem->id) ? $sourceItem->id : null,
+                    'description' => isset($sourceItem->description) ? $sourceItem->description : null,
+                    'url' => isset($sourceItem->url) ? $sourceItem->url : null,
+                    'category' => isset($sourceItem->category) ? $sourceItem->category : null,
+                    'language' => isset($sourceItem->language) ? $sourceItem->language : null,
+                    'country' => isset($sourceItem->country) ? $sourceItem->country : null,
+                ]
+            );
         }
 
         $sources = Source::all();
