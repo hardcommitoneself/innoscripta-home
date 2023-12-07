@@ -18,14 +18,14 @@ class NewsArticleController extends Controller
 
         if ($request->has('sources')) {
             $sources = $request->input('sources');
-            $articles->whereIn('source_id', json_decode($sources));
-            $cacheKey .= "sources-" . $sources;
+            $articles->whereIn('source_id', $sources);
+            $cacheKey .= "sources-" . json_encode($sources);
         }
 
         if ($request->has('categories')) {
             $categories = $request->input('categories');
-            $articles->whereIn('category_id', json_decode($categories));
-            $cacheKey .= "categories-" . $categories;
+            $articles->whereIn('category_id', $categories);
+            $cacheKey .= "categories-" . json_encode($categories);
         }
 
         if ($request->has('q')) {

@@ -89,8 +89,8 @@ class FetchNewsJob implements ShouldQueue
             $newArticle->title = $article->title;
             $newArticle->description = isset($article->description) ? $article->description : null;
             $newArticle->url = isset($article->url) ? $article->url : null;
-            $newArticle->urlToImage = isset($article->urlToImage) ? $article->urlToImage : null;
-            $newArticle->publishedAt = isset($article->publishedAt) ? $article->publishedAt : null;
+            $newArticle->url_to_image = isset($article->urlToImage) ? $article->urlToImage : null;
+            $newArticle->published_at = isset($article->publishedAt) ? $article->publishedAt : null;
             $newArticle->content = isset($article->content) ? $article->content : null;
             $randomCategory = Category::inRandomOrder()->first();
             $newArticle->category_id = $randomCategory->id;

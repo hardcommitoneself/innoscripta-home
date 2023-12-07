@@ -9,6 +9,8 @@ use App\Http\Controllers\Auth\CurrentUserController;
 use App\Http\Controllers\NewsArticleController;
 use App\Http\Controllers\NewsCategoryController;
 use App\Http\Controllers\NewsSourceController;
+use App\Http\Controllers\Setting\GetSettingController;
+use App\Http\Controllers\Setting\UpdateSettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +29,13 @@ Route::post('register', RegisterController::class);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', LogoutController::class);
     Route::get('user', CurrentUserController::class);
-    Route::get('news/categories', NewsCategoryController::class);
-    Route::get('news/sources', NewsSourceController::class);
-    Route::post('news/articles', NewsArticleController::class);
+    Route::prefix('news')->group(function () {
+        Route::get('/categories', NewsCategoryController::class);
+        Route::get('/sources', NewsSourceController::class);
+        Route::post('/articles', NewsArticleController::class);
+    });
+    Route::prefix('setting')->group(function () {
+        Route::get('/', GetSettingController::class);
+        Route::post('/', UpdateSettingController::class);
+    });
 });

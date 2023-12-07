@@ -22,9 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('articles', function (Blueprint $table) {
-            $table->rename('url_to_image', 'urlToImage');
-            $table->rename('published_at', 'publishedAt');
-        });
+        //
     }
 };
