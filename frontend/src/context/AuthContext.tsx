@@ -5,22 +5,22 @@ import api from "utils/axios";
 interface AuthContextProps {
   user: User | null;
   isAuthenticated: boolean;
-  login: (email: string, password: string) => void;
-  logout: () => void;
+  login: (email: string, password: string) => Promise<boolean>;
+  logout: () => Promise<boolean>;
   register: (
     name: string,
     email: string,
     password: string,
     passworcdConfirm: string
-  ) => void;
+  ) => Promise<boolean>;
 }
 
 export const AuthContext = createContext<AuthContextProps>({
   user: null,
   isAuthenticated: false,
-  login: () => {},
-  logout: () => {},
-  register: () => {},
+  login: async () => false,
+  logout: async () => false,
+  register: async () => false,
 });
 
 export const AuthCotnextProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -30,7 +30,7 @@ export const AuthCotnextProvider: React.FC<{ children: React.ReactNode }> = ({
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   const login = async (email: string, password: string) => {
-    const res = await api.post("http://localhost:8000/api/login", {
+    const res = await api.post("/login", {
       email,
       password,
     });
@@ -43,7 +43,10 @@ export const AuthCotnextProvider: React.FC<{ children: React.ReactNode }> = ({
       setIsAuthenticated(true);
 
       localStorage.setItem("token", accessToken);
+      return true;
     }
+
+    return false;
   };
 
   const register = async (
@@ -52,7 +55,7 @@ export const AuthCotnextProvider: React.FC<{ children: React.ReactNode }> = ({
     password: string,
     passwordConrim: string
   ) => {
-    const res = await api.post("http://localhost:8000/api/register", {
+    const res = await api.post("/register", {
       name,
       email,
       password,
@@ -67,11 +70,14 @@ export const AuthCotnextProvider: React.FC<{ children: React.ReactNode }> = ({
       setIsAuthenticated(true);
 
       localStorage.setItem("token", accessToken);
+      return true;
     }
+
+    return false;
   };
 
   const logout = async () => {
-    const res = await api.post("http://localhost:8000/api/logout");
+    const res = await api.post("/logout");
     const { status } = res.data;
 
     if (status === 204) {
@@ -79,7 +85,10 @@ export const AuthCotnextProvider: React.FC<{ children: React.ReactNode }> = ({
       setIsAuthenticated(false);
 
       localStorage.removeItem("token");
+      return true;
     }
+
+    return false;
   };
 
   useEffect(() => {}, []);

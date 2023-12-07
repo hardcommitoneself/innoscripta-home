@@ -1,17 +1,23 @@
 import React, { FC, useState } from "react";
 import { Input, Button, Card } from "components";
 import { UserIcon, KeyIcon } from "@heroicons/react/24/outline";
+import { useAuthContext } from "context/AuthContext";
 
 export const Login: FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { login } = useAuthContext();
 
-  const login = async () => {};
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
+  };
+  const handleLogin = async (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    await login(email, password);
   };
 
   return (
@@ -37,7 +43,7 @@ export const Login: FC = () => {
             className="w-full"
             icon={<KeyIcon />}
           />
-          <Button onClick={() => login()}>Login</Button>
+          <Button onClick={handleLogin}>Login</Button>
         </div>
       </Card>
     </div>
