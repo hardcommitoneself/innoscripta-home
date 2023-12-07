@@ -2,7 +2,26 @@ export type User = {
     id: number;
     name: string;
     email: string;
-    email_verified_at: string;
-    created_at: string;
-    updated_at: string;
+}
+
+export type Article = {
+    id: number;
+    sourceId: number;
+    author: string;
+    title: string;
+    description: string;
+    url: string;
+    urlToImage: string;
+    publishedAt: string;
+    content: string;
+    authorImg: string;
+    categoryId: number;
+    source: {
+        id: number;
+        name: string;
+    },
+    category: {
+        id: number;
+        name: string;
+    }
 }

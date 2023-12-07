@@ -1,43 +1,8 @@
 import React from "react";
 import { ArticleCard, TrendingCard, Input, Card } from "components";
+import { useArticleContext } from "context";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
-
-const articles = [
-  {
-    id: 1,
-    imgUrl: "https://picsum.photos/id/237/200/300",
-    title: "The overlooked benefits of real Christmas trees",
-    description:
-      "The environmental pros and cons of Christmas trees go far beyond the asdf adsf asdkjfljs d sskjd fjslkjd fkaskdf jaklsjd flaks jfasjdlkj asdj kj",
-    author: "Rey",
-    source: "Green",
-    category: "Environment",
-    publishedAt: "2023-12-01",
-  },
-  {
-    id: 2,
-    imgUrl: "https://picsum.photos/id/237/200/300",
-    title: "The overlooked benefits of real Christmas trees",
-    description:
-      "The environmental pros and cons of Christmas trees go far beyond the asdf adsf asdkjfljs d sskjd fjslkjd fkaskdf jaklsjd flaks jfasjdlkj asdj kj",
-    author: "Rey",
-    source: "Green",
-    category: "Environment",
-    publishedAt: "2023-12-01",
-  },
-  {
-    id: 3,
-    imgUrl: "https://picsum.photos/id/237/200/300",
-    title: "The overlooked benefits of real Christmas trees",
-    description:
-      "The environmental pros and cons of Christmas trees go far beyond the asdf adsf asdkjfljs d sskjd fjslkjd fkaskdf jaklsjd flaks jfasjdlkj asdj kj",
-    author: "Rey",
-    source: "Green",
-    category: "Environment",
-    publishedAt: "2023-12-01",
-  },
-];
 
 const trends = [
   {
@@ -53,6 +18,8 @@ const trends = [
 ];
 
 export const Home = () => {
+  const { articles } = useArticleContext();
+
   return (
     <div className="flex flex-col py-10">
       {/* search */}
@@ -69,9 +36,9 @@ export const Home = () => {
           {/* blog list */}
           <div className="flex flex-col gap-4 mr-1">
             {articles.map((article, index) => (
-              <Link to={`article/${article.id}`} key={index}>
+              <div key={index}>
                 <ArticleCard {...article} />
-              </Link>
+              </div>
             ))}
           </div>
         </div>
