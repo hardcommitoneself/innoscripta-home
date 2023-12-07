@@ -4,6 +4,16 @@ export type User = {
     email: string;
 }
 
+export type Category = {
+    id: number;
+    name: string;
+}
+
+export type Source = {
+    id: number;
+    name: string;
+}
+
 export type Article = {
     id: number;
     sourceId: number;
@@ -16,12 +26,6 @@ export type Article = {
     content: string;
     authorImg: string;
     categoryId: number;
-    source: {
-        id: number;
-        name: string;
-    },
-    category: {
-        id: number;
-        name: string;
-    }
+    source: Source,
+    category: Category
 }
