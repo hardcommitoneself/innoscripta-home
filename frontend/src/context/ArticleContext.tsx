@@ -50,26 +50,28 @@ export const ArticleContextProvider: React.FC<{
   };
 
   useEffect(() => {
-    api
-      .post("/news/articles/", {
-        q: search,
-        selectedSources,
-        selectedCategories,
-      })
-      .then((res) => {
-        const { articles } = res.data;
-        setArticles(articles.data);
+    const timerId = setTimeout(() => {
+      api
+        .post("/news/articles/", {
+          q: search,
+          selectedSources,
+          selectedCategories,
+        })
+        .then((res) => {
+          const { articles } = res.data;
+          setArticles(articles.data);
+        });
+      api.get("/news/sources/").then((res) => {
+        const { sources } = res.data;
+        setSources(sources.data);
       });
 
-    api.get("/news/sources/").then((res) => {
-      const { sources } = res.data;
-      setSources(sources.data);
-    });
-
-    api.get("/news/categories/").then((res) => {
-      const { categories } = res.data;
-      setCategories(categories.data);
-    });
+      api.get("/news/categories/").then((res) => {
+        const { categories } = res.data;
+        setCategories(categories.data);
+      });
+    }, 500);
+    return () => clearTimeout(timerId);
   }, [search]);
 
   return (
