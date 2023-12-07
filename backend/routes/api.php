@@ -26,14 +26,15 @@ use App\Http\Controllers\Setting\UpdateSettingController;
 Route::post('login', LoginController::class);
 Route::post('register', RegisterController::class);
 
+Route::prefix('news')->group(function () {
+    Route::get('/categories', NewsCategoryController::class);
+    Route::get('/sources', NewsSourceController::class);
+    Route::post('/articles', NewsArticleController::class);
+});
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', LogoutController::class);
     Route::get('user', CurrentUserController::class);
-    Route::prefix('news')->group(function () {
-        Route::get('/categories', NewsCategoryController::class);
-        Route::get('/sources', NewsSourceController::class);
-        Route::post('/articles', NewsArticleController::class);
-    });
     Route::prefix('setting')->group(function () {
         Route::get('/', GetSettingController::class);
         Route::post('/', UpdateSettingController::class);
