@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
@@ -22,7 +23,7 @@ class RegisterController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response(['errors' => $validator->errors()->all()], 422);
+            return response()->json(['errors' => $validator->errors()->all()], 422);
         }
 
         // create new user
@@ -35,6 +36,10 @@ class RegisterController extends Controller
         // generate token
         $token = $user->createToken('authToken')->plainTextToken;
 
-        return response(['user' => $user, 'access_token' => $token]);
+        return response()->json([
+            'user' => new UserResource($user),
+            'accessToken' => $token,
+            'status' => 200
+        ]);
     }
 }

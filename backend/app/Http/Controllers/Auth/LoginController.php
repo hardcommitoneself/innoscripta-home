@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -21,17 +22,21 @@ class LoginController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response(['errors' => $validator->errors()->all()], 422);
+            return response()->json(['errors' => $validator->errors()->all()], 422);
         }
 
         // authenticate user
         if (!Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            return response(['error' => 'Invalid credentials'], 401);
+            return response()->json(['error' => 'Invalid credentials'], 401);
         }
 
         // generate token
         $token = Auth::user()->createToken('authToken')->plainTextToken;
 
-        return response(['user' => auth()->user(), 'access_token' => $token]);
+        return response()->json([
+            'user' => new UserResource(auth()->user()),
+            'accessToken' => $token,
+            'status' => 200,
+        ]);
     }
 }
