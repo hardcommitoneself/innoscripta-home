@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { Card, Badge } from "components";
 import moment from "moment";
+import stc from "string-to-color";
 
 export interface TrendingCardProps {
   imgUrl: string;
@@ -30,10 +31,10 @@ export const TrendingCard: FC<TrendingCardProps> = (props) => {
         <div className="flex w-full items-center justify-between">
           <span className="font-medium">{props.author}</span>
           <div className="flex items-center gap-1">
-            <Badge className="text-xs" bgColor="success">
+            <Badge className="text-xs" bgColor={stc(props.category)}>
               {props.category}
             </Badge>
-            <Badge className="text-xs" bgColor="black">
+            <Badge className="text-xs" bgColor={stc(props.source)}>
               {props.source}
             </Badge>
           </div>

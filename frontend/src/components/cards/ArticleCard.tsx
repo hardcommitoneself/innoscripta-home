@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { Card, Badge, Button } from "components/common";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import stc from "string-to-color";
 
 export interface ArticleCardProps {
   id: number;
@@ -48,10 +49,10 @@ export const ArticleCard: FC<ArticleCardProps> = (props) => {
           <div className="flex flex-col gap-1">
             <span className="font-bold">{props.author}</span>
             <div className="flex items-center gap-1">
-              <Badge className="text-xs" bgColor="success">
+              <Badge className="text-xs" bgColor={stc(props.category.name)}>
                 {props.category.name}
               </Badge>
-              <Badge className="text-xs" bgColor="black">
+              <Badge className="text-xs" bgColor={stc(props.source.name)}>
                 {props.source.name}
               </Badge>
             </div>

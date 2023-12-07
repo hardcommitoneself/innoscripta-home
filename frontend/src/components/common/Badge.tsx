@@ -3,25 +3,20 @@ import clsx from "clsx";
 
 export type BadgeProps = JSX.IntrinsicElements["label"] & {
   children: React.ReactNode;
-  bgColor?: "black" | "primary" | "success";
+  bgColor: string;
 };
 
 export const Badge: FC<BadgeProps> = ({
   children,
-  bgColor = "primary",
+  bgColor,
   className,
   ...rest
 }) => {
   return (
     <label
       {...rest}
-      className={clsx(
-        className,
-        bgColor === "success" && "!bg-success",
-        bgColor === "primary" && "!bg-primary",
-        bgColor === "black" && "!bg-slate-900",
-        "px-3 py-1 rounded-full text-white"
-      )}
+      className={clsx(className, "px-3 py-1 rounded-full text-white")}
+      style={{ backgroundColor: bgColor }}
     >
       {children}
     </label>
