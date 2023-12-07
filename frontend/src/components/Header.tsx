@@ -9,7 +9,7 @@ export const Header: React.FC = () => {
   const { pathname } = useLocation();
 
   return (
-    <div className="sticky flex items-center h-24 top-0 z-50 w-full py-2">
+    <div className="sticky flex items-center h-24 top-0 z-50 w-full py-2 bg-[#EFEFEF]">
       <div className="w-full">
         <div className="mx-auto max-w-7xl px-2 md:px-6 lg:px-8 flex items-center justify-between">
           <Link to="/" className="font-bold text-4xl">

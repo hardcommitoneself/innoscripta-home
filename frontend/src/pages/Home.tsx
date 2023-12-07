@@ -1,9 +1,11 @@
 import React from "react";
-import { ArticleCard, TrendingCard, Input, Button, Card } from "components";
+import { ArticleCard, TrendingCard, Input, Card } from "components";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
 
 const articles = [
   {
+    id: 1,
     imgUrl: "https://picsum.photos/id/237/200/300",
     title: "The overlooked benefits of real Christmas trees",
     description:
@@ -14,6 +16,18 @@ const articles = [
     publishedAt: "2023-12-01",
   },
   {
+    id: 2,
+    imgUrl: "https://picsum.photos/id/237/200/300",
+    title: "The overlooked benefits of real Christmas trees",
+    description:
+      "The environmental pros and cons of Christmas trees go far beyond the asdf adsf asdkjfljs d sskjd fjslkjd fkaskdf jaklsjd flaks jfasjdlkj asdj kj",
+    author: "Rey",
+    source: "Green",
+    category: "Environment",
+    publishedAt: "2023-12-01",
+  },
+  {
+    id: 3,
     imgUrl: "https://picsum.photos/id/237/200/300",
     title: "The overlooked benefits of real Christmas trees",
     description:
@@ -40,7 +54,7 @@ const trends = [
 
 export const Home = () => {
   return (
-    <div className="flex flex-col py-20">
+    <div className="flex flex-col py-10">
       {/* search */}
       <div className="flex items-center justify-between">
         <Input
@@ -51,13 +65,13 @@ export const Home = () => {
       </div>
 
       <div className="flex gap-10 mt-5">
-        <div className="flex gap-5 w-3/5">
+        <div className="flex gap-5 w-3/5 overflow-y-auto max-h-[60vh]">
           {/* blog list */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 mr-1">
             {articles.map((article, index) => (
-              <div key={index}>
+              <Link to={`article/${article.id}`} key={index}>
                 <ArticleCard {...article} />
-              </div>
+              </Link>
             ))}
           </div>
         </div>
