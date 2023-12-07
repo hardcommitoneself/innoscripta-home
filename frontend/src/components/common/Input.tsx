@@ -1,35 +1,25 @@
 import React, { FC } from "react";
 import clsx from "clsx";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 export type InputType = JSX.IntrinsicElements["input"] & {
-  search?: boolean;
-  rounded?: boolean;
-  block?: boolean;
+  icon?: React.ReactNode;
 };
 
-export const Input: FC<InputType> = ({
-  className,
-  search = false,
-  rounded,
-  block = false,
-  ...rest
-}) => {
+export const Input: FC<InputType> = ({ icon, className, ...rest }) => {
   return (
-    <div className="inline-flex items-center relative">
-      {search && (
-        <MagnifyingGlassIcon className="absolute left-3 h-5 w-5 text-gray-500" />
-      )}
+    <div className="relative">
       <input
-        {...rest}
+        type="email"
         className={clsx(
           className,
-          block && "w-full block",
-          (rounded && "rounded-full") || "rounded-md",
-          search === true ? "pl-10" : "pl-3",
-          "pr-3 py-1 border"
+          icon && "ps-11",
+          "peer py-3 px-4 block bg-[#E8E8E8] border-transparent rounded-lg text-sm disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-700 dark:border-transparent dark:text-gray-400 dark:focus:ring-gray-600 outline-none"
         )}
+        {...rest}
       />
+      <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-4 peer-disabled:opacity-50 peer-disabled:pointer-events-none">
+        <span className="flex-shrink-0 w-4 h-4 text-gray-500">{icon}</span>
+      </div>
     </div>
   );
 };

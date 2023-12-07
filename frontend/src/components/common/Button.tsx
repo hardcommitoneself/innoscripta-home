@@ -23,7 +23,7 @@ export const Button: FC<ButtonProps> = ({
         bgColor === "success" && "!bg-success",
         bgColor === "primary" && "!bg-primary",
         bgColor === "black" && "!bg-slate-900",
-        "px-5 py-1 rounded-full text-white active:opacity-50 hover:ring-4 hover:outline-none hover:ring-cyan-30"
+        "py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
       )}
     >
       {children}

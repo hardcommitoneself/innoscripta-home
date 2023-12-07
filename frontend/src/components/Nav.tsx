@@ -20,7 +20,11 @@ export const NavItem: FC<NavItemType> = ({
     <Link
       {...rest}
       to={to}
-      className={clsx(className, current && "text-primary", "border-0")}
+      className={clsx(
+        className,
+        current && "text-primary",
+        "border-0 font-medium"
+      )}
     >
       {children}
     </Link>

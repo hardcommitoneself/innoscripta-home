@@ -1,5 +1,6 @@
 import React, { FC, useState } from "react";
 import { Input, Button, Card } from "components";
+import { UserIcon, KeyIcon } from "@heroicons/react/24/outline";
 
 export const Login: FC = () => {
   const [email, setEmail] = useState("");
@@ -14,27 +15,27 @@ export const Login: FC = () => {
   };
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center mt-40">
       <Card className="w-1/2">
         <div className="flex flex-col gap-5 px-5 py-5">
-          <label htmlFor="" className="px-3">
-            Email Address *
-          </label>
+          <h1 className="text-center text-3xl font-bold my-5">
+            Innoscripta <span className="text-primary">BLOG</span>
+          </h1>
+
           <Input
             value={email}
             onChange={handleEmailChange}
             placeholder="Type your email address"
-            block
+            className="w-full"
+            icon={<UserIcon />}
           />
-          <label htmlFor="" className="px-3">
-            Password *
-          </label>
           <Input
             value={password}
             onChange={handlePasswordChange}
             placeholder="Type your password"
             type="password"
-            block
+            className="w-full"
+            icon={<KeyIcon />}
           />
           <Button onClick={() => login()}>Login</Button>
         </div>
