@@ -37,22 +37,26 @@ export const AuthCotnextProvider: React.FC<{ children: React.ReactNode }> = ({
   const [isLoading, setIsLoading] = useState(false);
 
   const login = async (email: string, password: string) => {
-    setIsLoading(true);
-    const res = await api.post("/login", {
-      email,
-      password,
-    });
-    const { user, accessToken, status } = res.data;
-    setIsLoading(false);
+    try {
+      setIsLoading(true);
+      const res = await api.post("/login", {
+        email,
+        password,
+      });
+      const { user, accessToken, status } = res.data;
+      setIsLoading(false);
+      if (status === 200) {
+        const newUser: User = user;
 
-    if (status === 200) {
-      const newUser: User = user;
+        setUser(newUser);
+        setIsAuthenticated(true);
 
-      setUser(newUser);
-      setIsAuthenticated(true);
-
-      localStorage.setItem("token", accessToken);
-      return true;
+        localStorage.setItem("token", accessToken);
+        return true;
+      }
+    } catch (e) {
+      setIsLoading(false);
+      console.log(e);
     }
 
     return false;
@@ -64,41 +68,51 @@ export const AuthCotnextProvider: React.FC<{ children: React.ReactNode }> = ({
     password: string,
     passwordConrim: string
   ) => {
-    setIsLoading(true);
-    const res = await api.post("/register", {
-      name,
-      email,
-      password,
-      password_confirmation: passwordConrim,
-    });
-    setIsLoading(false);
-    const { user, accessToken, status } = res.data;
+    try {
+      setIsLoading(true);
+      const res = await api.post("/register", {
+        name,
+        email,
+        password,
+        password_confirmation: passwordConrim,
+      });
+      setIsLoading(false);
+      const { user, accessToken, status } = res.data;
 
-    if (status === 200) {
-      const newUser: User = user;
+      if (status === 200) {
+        const newUser: User = user;
 
-      setUser(newUser);
-      setIsAuthenticated(true);
+        setUser(newUser);
+        setIsAuthenticated(true);
 
-      localStorage.setItem("token", accessToken);
-      return true;
+        localStorage.setItem("token", accessToken);
+        return true;
+      }
+    } catch (e) {
+      setIsLoading(false);
+      console.log(e);
     }
 
     return false;
   };
 
   const logout = async () => {
-    setIsLoading(true);
-    const res = await api.post("/logout");
-    setIsLoading(false);
-    const { status } = res.data;
+    try {
+      setIsLoading(true);
+      const res = await api.post("/logout");
+      setIsLoading(false);
+      const { status } = res.data;
 
-    if (status === 204) {
-      setUser(null);
-      setIsAuthenticated(false);
+      if (status === 204) {
+        setUser(null);
+        setIsAuthenticated(false);
 
-      localStorage.removeItem("token");
-      return true;
+        localStorage.removeItem("token");
+        return true;
+      }
+    } catch (e) {
+      setIsLoading(false);
+      console.log(e);
     }
 
     return false;
@@ -116,7 +130,9 @@ export const AuthCotnextProvider: React.FC<{ children: React.ReactNode }> = ({
 
         return true;
       }
-    } catch (error) {}
+    } catch (e) {
+      console.log(e);
+    }
     return false;
   };
 

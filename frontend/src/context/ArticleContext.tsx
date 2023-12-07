@@ -54,8 +54,8 @@ export const ArticleContextProvider: React.FC<{
       api
         .post("/news/articles/", {
           q: search,
-          selectedSources,
-          selectedCategories,
+          sources: selectedSources,
+          categories: selectedCategories,
         })
         .then((res) => {
           const { articles } = res.data;
