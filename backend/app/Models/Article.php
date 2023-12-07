@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     use HasFactory;
-    protected $fillable = ['source_id', 'author', 'title', 'description', 'url', 'urlToImage', 'publishedAt', 'content', 'category_id'];
+    protected $fillable = ['source_id', 'author', 'author_img', 'title', 'description', 'url', 'url_to_image', 'published_at', 'content', 'category_id'];
 
     public function source()
     {
