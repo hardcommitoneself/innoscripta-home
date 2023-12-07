@@ -1,12 +1,20 @@
 import React, { FC, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Input, Button, Card } from "components";
-import { EnvelopeIcon, KeyIcon } from "@heroicons/react/24/outline";
+import { EnvelopeIcon, KeyIcon, UserIcon } from "@heroicons/react/24/outline";
+import { useAuthContext } from "context/AuthContext";
 
 export const Register: FC = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passworcdConfirm, setPasswordConfirm] = useState("");
+  const { register } = useAuthContext();
+  const navigate = useNavigate();
 
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+  };
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
@@ -18,7 +26,14 @@ export const Register: FC = () => {
   ) => {
     setPasswordConfirm(event.target.value);
   };
-  const register = async () => {};
+  const handleRegister = async (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    const res = await register(name, email, password, passworcdConfirm);
+    if (res) {
+      navigate("/login");
+    }
+  };
 
   return (
     <div className="flex justify-center mt-40">
@@ -27,6 +42,14 @@ export const Register: FC = () => {
           <h1 className="text-center text-3xl font-bold my-5">
             Innoscripta <span className="text-primary">BLOG</span>
           </h1>
+
+          <Input
+            value={name}
+            onChange={handleNameChange}
+            placeholder="Type your full name"
+            className="w-full"
+            icon={<UserIcon />}
+          />
 
           <Input
             value={email}
@@ -54,7 +77,7 @@ export const Register: FC = () => {
             icon={<KeyIcon />}
           />
 
-          <Button onClick={() => register()}>Register</Button>
+          <Button onClick={handleRegister}>Register</Button>
         </div>
       </Card>
     </div>
