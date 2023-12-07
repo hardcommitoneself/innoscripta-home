@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Input, Button, Card } from "components";
 
-export const RegisterPage: FC = () => {
+export const Register: FC = () => {
   return (
     <div className="flex justify-center">
       <Card className="w-1/2">

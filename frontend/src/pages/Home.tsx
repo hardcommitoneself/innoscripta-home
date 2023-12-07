@@ -1,7 +1,7 @@
 import React from "react";
 import { ArticleCard, TrendingCard, Input, Button } from "components";
 
-export const HomePage = () => {
+export const Home = () => {
   return (
     <div className="flex flex-col py-20">
       <div className="flex items-end text-6xl font-bold text-primary">

@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect } from "react";
 import { Input, Button, Card } from "components";
 import api from "utils/axios";
 
-export const LoginPage: FC = () => {
+export const Login: FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const login = async () => {
