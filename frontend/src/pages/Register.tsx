@@ -1,7 +1,24 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Input, Button, Card } from "components";
 
 export const Register: FC = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passworcdConfirm, setPasswordConfirm] = useState("");
+
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+  };
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  };
+  const handlePasswordConfirmChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setPasswordConfirm(event.target.value);
+  };
+  const register = async () => {};
+
   return (
     <div className="flex justify-center">
       <Card className="w-1/2">
@@ -9,16 +26,33 @@ export const Register: FC = () => {
           <label htmlFor="" className="px-3">
             Email Address *
           </label>
-          <Input placeholder="Type your email address" block />
+          <Input
+            value={email}
+            onChange={handleEmailChange}
+            placeholder="Type your email address"
+            block
+          />
           <label htmlFor="" className="px-3">
             Password *
           </label>
-          <Input placeholder="Type your password" type="password" block />
+          <Input
+            value={password}
+            onChange={handlePasswordChange}
+            placeholder="Type your password"
+            type="password"
+            block
+          />
           <label htmlFor="" className="px-3">
-            Password confirmation *
+            Password Confirmation *
           </label>
-          <Input placeholder="Confirm your password" type="password" block />
-          <Button>Register</Button>
+          <Input
+            value={passworcdConfirm}
+            onChange={handlePasswordConfirmChange}
+            placeholder="Confirm your password"
+            type="password"
+            block
+          />
+          <Button onClick={() => register()}>Register</Button>
         </div>
       </Card>
     </div>

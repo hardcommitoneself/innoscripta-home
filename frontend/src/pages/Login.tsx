@@ -1,24 +1,17 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState } from "react";
 import { Input, Button, Card } from "components";
-import api from "utils/axios";
 
 export const Login: FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const login = async () => {
-    await api.post("http://localhost:8000/api/login", {
-      email,
-      password,
-    });
-  };
+
+  const login = async () => {};
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   };
-
-  useEffect(() => {}, []);
 
   return (
     <div className="flex justify-center">

@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { Layout } from "components";
-import { Home, NoPage, Register, Login } from "pages";
+import { Layout, PrivateWrapper } from "components";
+import { Home, NoPage, Register, Login, Settings } from "pages";
 
 function App() {
   return (
@@ -11,6 +11,9 @@ function App() {
           <Route index element={<Home />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
+          <Route element={<PrivateWrapper />}>
+            <Route path="settings" element={<Settings />} />
+          </Route>
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>
