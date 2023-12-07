@@ -18,26 +18,27 @@ export interface ArticleCardProps {
     name: string;
   };
   author: string;
+  authorImg: string;
   publishedAt: string;
 }
 
 export const ArticleCard: FC<ArticleCardProps> = (props) => {
   return (
     <Card className="flex items-stratch gap-3 text-sm">
-      <div className="w-1/4">
+      <div className="w-1/5">
         <img
-          className="aspect-square rounded-xl"
+          className="w-full aspect-square rounded-xl"
           src={props.urlToImage}
           alt={props.urlToImage}
         />
       </div>
-      <div className="w-3/4 flex flex-col justify-between gap-3 p-1">
+      <div className="w-4/5 flex flex-col justify-between gap-3 p-1">
         <div className="flex justify-between">
           <div className="w-3/4 flex flex-col gap-1">
             <h2 className="line-clamp-2 font-bold text-base break-all">
               {props.title}
             </h2>
-            <p className="line-clamp-2 break-all">{props.description}</p>
+            <p className="break-all">{props.description}</p>
           </div>
           <div className="w-1/4">
             <p className="text-gray-400 text-xs text-right">
@@ -47,7 +48,14 @@ export const ArticleCard: FC<ArticleCardProps> = (props) => {
         </div>
         <div className="flex items-end justify-between">
           <div className="flex flex-col gap-1">
-            <span className="font-bold">{props.author}</span>
+            <div className="flex items-center gap-2">
+              <img
+                src={props.authorImg}
+                alt={props.authorImg}
+                className="w-6 h-6 rounded-full"
+              />
+              <span className="font-bold">{props.author}</span>
+            </div>
             <div className="flex items-center gap-1">
               <Badge className="text-xs" bgColor={stc(props.category.name)}>
                 {props.category.name}

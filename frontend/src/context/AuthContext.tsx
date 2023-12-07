@@ -27,7 +27,7 @@ export const AuthCotnextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   const login = async (email: string, password: string) => {
     const res = await api.post("/login", {
@@ -90,8 +90,6 @@ export const AuthCotnextProvider: React.FC<{ children: React.ReactNode }> = ({
 
     return false;
   };
-
-  useEffect(() => {}, []);
 
   return (
     <AuthContext.Provider

@@ -5,7 +5,7 @@ import { Button } from "./common";
 import { NavBar, NavItem } from "./Nav";
 
 export const Header: React.FC = () => {
-  const { isAuthenticated } = useAuthContext();
+  const { isAuthenticated, logout } = useAuthContext();
   const { pathname } = useLocation();
 
   return (
@@ -32,7 +32,7 @@ export const Header: React.FC = () => {
               ) : (
                 <>
                   <NavItem to="settings">Settings</NavItem>
-                  <Button>Logout</Button>
+                  <Button onClick={() => logout()}>Logout</Button>
                 </>
               )}
             </NavBar>

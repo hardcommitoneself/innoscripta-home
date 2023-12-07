@@ -1,4 +1,5 @@
 import React, { FC, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Input, Button, Card } from "components";
 import { UserIcon, KeyIcon } from "@heroicons/react/24/outline";
 import { useAuthContext } from "context/AuthContext";
@@ -7,6 +8,7 @@ export const Login: FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuthContext();
+  const navigate = useNavigate();
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -17,7 +19,10 @@ export const Login: FC = () => {
   const handleLogin = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    await login(email, password);
+    const res = await login(email, password);
+    if (res) {
+      navigate("/");
+    }
   };
 
   return (
