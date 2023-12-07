@@ -13,6 +13,6 @@ class CurrentUserController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return response(['user' => $request->user()]);
+        return response()->json(['user' => new UserResource($request->user()), 'status' => 200]);
     }
 }
