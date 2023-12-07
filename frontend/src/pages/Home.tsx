@@ -18,11 +18,8 @@ const articles = [
 export const Home = () => {
   return (
     <div className="flex flex-col py-20">
-      <div className="flex items-end text-6xl font-bold text-primary">
-        For you
-      </div>
-      {/* search & create accoutn */}
-      <div className="flex items-center justify-between mt-4">
+      {/* search */}
+      <div className="flex items-center justify-between">
         <Input
           className="min-w-[300px] !rounded-full"
           placeholder="Search article..."
@@ -31,10 +28,7 @@ export const Home = () => {
       </div>
 
       <div className="flex gap-10 mt-5">
-        <div className="flex flex-col gap-5 w-2/3">
-          {/* filter */}
-          <div className=""></div>
-
+        <div className="flex gap-5 w-2/3">
           {/* blog list */}
           <div className="flex flex-col gap-4">
             {articles.map((article, index) => (
