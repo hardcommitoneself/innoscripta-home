@@ -6,9 +6,9 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\CurrentUserController;
-use App\Http\Controllers\NewsArticleController;
-use App\Http\Controllers\NewsCategoryController;
-use App\Http\Controllers\NewsSourceController;
+use App\Http\Controllers\News\NewsArticleController;
+use App\Http\Controllers\News\NewsCategoryController;
+use App\Http\Controllers\News\NewsSourceController;
 use App\Http\Controllers\Setting\GetSettingController;
 use App\Http\Controllers\Setting\UpdateSettingController;
 
