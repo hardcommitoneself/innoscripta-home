@@ -15,10 +15,8 @@ class SettingResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'userId' => $this->user_id,
-            'sources' => json_decode($this->sources),
-            'categories' => json_decode($this->categories),
+            'sources' => isset($this->sources) ? json_decode($this->sources) : [],
+            'categories' => isset($this->categories) ? json_decode($this->categories) : [],
         ];
     }
 }

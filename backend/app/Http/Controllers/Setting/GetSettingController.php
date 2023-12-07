@@ -19,6 +19,10 @@ class GetSettingController extends Controller
 
         $setting = Setting::where('user_id', $user->id)->first();
 
+        if (!$setting) {
+            return response()->json(['settings' => new SettingResource(null), 'status' => 200]);
+        }
+
         return response()->json(['settings' => new SettingResource($setting), 'status' => 200]);
     }
 }

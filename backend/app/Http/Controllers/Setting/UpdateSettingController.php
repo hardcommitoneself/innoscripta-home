@@ -15,15 +15,15 @@ class UpdateSettingController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $sources = json_encode($request->input('sources'));
-        $categories = json_encode($request->input('categories'));
+        $sources = $request->input('sources');
+        $categories = $request->input('categories');
         $user = $request->user();
 
         $setting = Setting::updateOrCreate(
             ['user_id' => $user->id],
             [
-                'sources' => $sources,
-                'categories' => $categories
+                'sources' => json_encode($sources ? $sources : []),
+                'categories' => json_encode($categories ? $categories : [])
             ]
         );
 
