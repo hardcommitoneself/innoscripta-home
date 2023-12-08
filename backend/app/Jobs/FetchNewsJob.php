@@ -71,8 +71,8 @@ class FetchNewsJob implements ShouldQueue
         $sourcesQuery = implode(',', $sourcesQueryArray);
         $articles = $newsApiService->getNewsArticles(
             $sources = $sourcesQuery,
-            $from = "2023-12-01",
-            $to = "2023-12-05"
+            $from = $today,
+            $to = $today
         );
         foreach ($articles as $article) {
             $newArticle = new Article();
