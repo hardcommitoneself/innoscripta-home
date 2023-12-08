@@ -25,3 +25,11 @@
 ::-webkit-scrollbar-thumb:hover {
     @apply bg-gray-600
 }
+
+.dropdown-container {
+    border: none !important;
+}
+
+.dropdown-heading {
+    background-color: #E8E8E8;
+}
