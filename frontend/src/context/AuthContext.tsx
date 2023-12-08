@@ -1,4 +1,5 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
+import toast from "react-hot-toast";
 import type { User } from "types";
 import api from "utils/axios";
 
@@ -52,11 +53,15 @@ export const AuthCotnextProvider: React.FC<{ children: React.ReactNode }> = ({
         setIsAuthenticated(true);
 
         localStorage.setItem("token", accessToken);
+
+        toast.success("You have logged in successfully");
         return true;
       }
-    } catch (e) {
+    } catch (e: any) {
       setIsLoading(false);
-      console.log(e);
+
+      toast.error(e.message);
+      console.log(e.code);
     }
 
     return false;
@@ -86,10 +91,14 @@ export const AuthCotnextProvider: React.FC<{ children: React.ReactNode }> = ({
         setIsAuthenticated(true);
 
         localStorage.setItem("token", accessToken);
+
+        toast.success("You have registered the account successfully");
         return true;
       }
-    } catch (e) {
+    } catch (e: any) {
       setIsLoading(false);
+
+      toast.error(e.message);
       console.log(e);
     }
 
@@ -108,10 +117,14 @@ export const AuthCotnextProvider: React.FC<{ children: React.ReactNode }> = ({
         setIsAuthenticated(false);
 
         localStorage.removeItem("token");
+
+        toast.success("You have logged out successfully");
         return true;
       }
-    } catch (e) {
+    } catch (e: any) {
       setIsLoading(false);
+
+      toast.error(e.message);
       console.log(e);
     }
 
@@ -120,7 +133,9 @@ export const AuthCotnextProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const getUser = async () => {
     try {
+      setIsLoading(true);
       const res = await api.get("/user");
+      setIsLoading(false);
       const { status } = res.data;
       if (status === 200) {
         const newUser: User = res.data.user;
@@ -131,6 +146,7 @@ export const AuthCotnextProvider: React.FC<{ children: React.ReactNode }> = ({
         return true;
       }
     } catch (e) {
+      setIsLoading(false);
       console.log(e);
     }
     return false;

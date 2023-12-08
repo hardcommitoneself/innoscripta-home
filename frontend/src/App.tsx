@@ -1,13 +1,14 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import { Layout, PrivateWrapper, LoadingWrapper } from "components";
 import { AuthCotnextProvider, ArticleContextProvider } from "context";
 import { Home, NoPage, Register, Login, Settings, Article } from "pages";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <AuthCotnextProvider>
       <ArticleContextProvider>
+        <Toaster />
         <BrowserRouter>
           <Routes>
             <Route element={<LoadingWrapper />}>
