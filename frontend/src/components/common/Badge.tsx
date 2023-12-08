@@ -15,7 +15,10 @@ export const Badge: FC<BadgeProps> = ({
   return (
     <label
       {...rest}
-      className={clsx(className, "px-3 py-1 rounded-full text-white")}
+      className={clsx(
+        className,
+        "px-3 py-1 rounded-full text-white flex items-center justify-center"
+      )}
       style={{ backgroundColor: bgColor }}
     >
       {children}

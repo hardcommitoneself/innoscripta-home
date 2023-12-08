@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
-import type { Article, Category, Source } from "types";
+import type { Article, Category, Source, Settings } from "types";
 import { Option } from "react-multi-select-component";
 import api from "utils/axios";
 
@@ -10,9 +10,11 @@ interface ArticleContextProps {
   search: string;
   selectedCategories: number[];
   selectedSources: number[];
+  settings: Settings;
   setSearch: (search: string) => void;
   setSelectedSources: (sources: Option[]) => void;
   setSelectedCategories: (categories: Option[]) => void;
+  setSettings: (setting: Settings) => void;
 }
 
 export const ArticleContext = createContext<ArticleContextProps>({
@@ -22,9 +24,11 @@ export const ArticleContext = createContext<ArticleContextProps>({
   search: "",
   selectedCategories: [],
   selectedSources: [],
+  settings: { sources: [], categories: [] },
   setSearch: () => {},
   setSelectedSources: () => {},
   setSelectedCategories: () => {},
+  setSettings: () => {},
 });
 
 export const ArticleContextProvider: React.FC<{
@@ -36,6 +40,10 @@ export const ArticleContextProvider: React.FC<{
   const [search, setSearch] = useState<string>("");
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
   const [selectedSources, setSelectedSources] = useState<number[]>([]);
+  const [settings, setSettings] = useState<Settings>({
+    sources: [],
+    categories: [],
+  });
 
   const handleSetSelectedCategories = (categories: Option[]) => {
     setSelectedCategories(categories.map((category) => category.value));
@@ -45,9 +53,25 @@ export const ArticleContextProvider: React.FC<{
     setSelectedSources(sources.map((source) => source.value));
   };
 
+  const handleSetSettings = (settings: Settings) => {
+    setSettings(settings);
+
+    api.post("/setting", settings);
+  };
+
   const handleSetSearch = (search: string) => {
     setSearch(search);
   };
+
+  useEffect(() => {
+    api.get("/setting").then((res) => {
+      const { categories, sources } = res.data.settings;
+
+      setSettings({ categories, sources });
+      setSelectedCategories(categories);
+      setSelectedSources(sources);
+    });
+  }, []);
 
   useEffect(() => {
     const timerId = setTimeout(() => {
@@ -72,7 +96,7 @@ export const ArticleContextProvider: React.FC<{
       });
     }, 500);
     return () => clearTimeout(timerId);
-  }, [search]);
+  }, [search, selectedCategories, selectedSources]);
 
   return (
     <ArticleContext.Provider
@@ -83,9 +107,11 @@ export const ArticleContextProvider: React.FC<{
         search,
         selectedCategories,
         selectedSources,
+        settings,
         setSearch: handleSetSearch,
         setSelectedSources: handleSetSelectedSources,
         setSelectedCategories: handleSetSelectedCategories,
+        setSettings: handleSetSettings,
       }}
     >
       {children}

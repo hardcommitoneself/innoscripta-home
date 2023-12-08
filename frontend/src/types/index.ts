@@ -31,8 +31,6 @@ export type Article = {
 };
 
 export type Settings = {
-  id: number;
-  userId: number;
   sources: number[];
   categories: number[];
 };

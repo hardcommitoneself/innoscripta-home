@@ -51,7 +51,13 @@ export const Home = () => {
               return (
                 <div className="flex items-center gap-2">
                   {selected.map((option) => (
-                    <Badge bgColor={stc(option.label)}>{option.label}</Badge>
+                    <Badge
+                      key={option.value}
+                      bgColor={stc(option.label)}
+                      className="text-xs h-5"
+                    >
+                      {option.label}
+                    </Badge>
                   ))}
                 </div>
               );
@@ -77,7 +83,13 @@ export const Home = () => {
               return (
                 <div className="flex items-center gap-2">
                   {selected.map((option) => (
-                    <Badge bgColor={stc(option.label)}>{option.label}</Badge>
+                    <Badge
+                      key={option.value}
+                      bgColor={stc(option.label)}
+                      className="text-xs h-5"
+                    >
+                      {option.label}
+                    </Badge>
                   ))}
                 </div>
               );

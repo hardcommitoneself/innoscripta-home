@@ -3,9 +3,24 @@ import { Badge } from "components";
 import { MultiSelect } from "react-multi-select-component";
 import { useArticleContext } from "context";
 import stc from "string-to-color";
+import { Option } from "react-multi-select-component";
 
 export const Settings = () => {
-  const { categories, sources, selectedCategories } = useArticleContext();
+  const { categories, sources, settings, setSettings } = useArticleContext();
+
+  const handleSetSourceSettings = (sources: Option[]) => {
+    setSettings({
+      ...settings,
+      sources: sources.map((source) => source.value),
+    });
+  };
+
+  const handleSetCategorieSettings = (categories: Option[]) => {
+    setSettings({
+      ...settings,
+      categories: categories.map((category) => category.value),
+    });
+  };
 
   return (
     <div className="mx-auto max-w-6xl flex flex-col py-10">
@@ -22,19 +37,21 @@ export const Settings = () => {
               value: category.id,
             };
           })}
-          value={selectedCategories.map((category) => {
+          value={settings.categories.map((category) => {
             return {
               label: categories.find((c) => c.id === category)?.name ?? "",
               value: category,
             };
           })}
-          onChange={selectedCategories}
+          onChange={handleSetCategorieSettings}
           labelledBy="Select"
           valueRenderer={(selected, _options) => {
             return (
               <div className="flex items-center gap-2">
                 {selected.map((option) => (
-                  <Badge bgColor={stc(option.label)}>{option.label}</Badge>
+                  <Badge key={option.value} bgColor={stc(option.label)}>
+                    {option.label}
+                  </Badge>
                 ))}
               </div>
             );
@@ -53,19 +70,21 @@ export const Settings = () => {
               value: source.id,
             };
           })}
-          value={selectedCategories.map((category) => {
+          value={settings.sources.map((source) => {
             return {
-              label: categories.find((c) => c.id === category)?.name ?? "",
-              value: category,
+              label: sources.find((c) => c.id === source)?.name ?? "",
+              value: source,
             };
           })}
-          onChange={selectedCategories}
+          onChange={handleSetSourceSettings}
           labelledBy="Select"
           valueRenderer={(selected, _options) => {
             return (
               <div className="flex items-center gap-2">
                 {selected.map((option) => (
-                  <Badge bgColor={stc(option.label)}>{option.label}</Badge>
+                  <Badge key={option.value} bgColor={stc(option.label)}>
+                    {option.label}
+                  </Badge>
                 ))}
               </div>
             );
