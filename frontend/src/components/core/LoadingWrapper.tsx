@@ -8,8 +8,8 @@ export const LoadingWrapper = () => {
 
   return (
     <div className="relative">
-      {isLoading && (
-        <div className="sticky top-1/2 z-50 flex items-center justify-center">
+      {isLoading ? (
+        <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 flex items-center justify-center">
           <div role="status">
             <svg
               aria-hidden="true"
@@ -30,10 +30,11 @@ export const LoadingWrapper = () => {
             <span className="sr-only">Loading...</span>
           </div>
         </div>
+      ) : (
+        <div className={clsx(isLoading && "opacity-50")}>
+          <Outlet />
+        </div>
       )}
-      <div className={clsx(isLoading && "opacity-50")}>
-        <Outlet />
-      </div>
     </div>
   );
 };
